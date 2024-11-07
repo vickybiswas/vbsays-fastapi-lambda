@@ -39,3 +39,27 @@ uvicorn main:app --reload
 
 Open in your browser [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
+### Route
+
+Add another route to the FastAPI and run it. 
+**main.py** edit
+```
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+async def json_output():
+  return {"output": "FastAPI is working"}
+
+@app.get("/route")
+async def route():
+    return {"output": "Another FastAPI route"}
+
+# End of File
+```
+
+Run API using
+```
+uvicorn main:app --reload
+```
