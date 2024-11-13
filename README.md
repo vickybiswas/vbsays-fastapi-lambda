@@ -63,3 +63,68 @@ Run API using
 ```
 uvicorn main:app --reload
 ```
+
+### Advanced
+
+Let's Structure this for more advanced projects. 
+Creating an example crud application with 3 entities User, Task and Share.
+```mermaid
+---
+title: ER Diagram
+---
+erDiagram
+    USER {
+        int id PK
+        string slug
+        string name
+        string phone
+        string email
+    }
+    
+    TASK {
+        int id PK
+        int user_id FK "References USER.id"
+        string slug
+        string detail
+        datetime created_at
+        datetime changed_at
+        string state
+    }
+    
+    SHARE {
+        int id PK
+        int user_id FK "References USER.id"
+        int task_id FK "References TASK.id"
+        int shared_with FK "References USER.id"
+        string slug
+        string note
+        string permission
+    }
+
+    PERMISSION {
+        int id PK
+        string permission
+    }
+
+    STATE {
+        int id PK
+        string state 
+    }
+
+
+    USER  ||--o{ TASK  : "Creates Task"
+    TASK  ||--o{ SHARE : "Is Shared"
+    USER  ||--o{ SHARE : "Shares Task"
+    USER  ||--o{ SHARE : "Can See Task"
+    TASK  }o--|| STATE : "Task State Enum"
+    SHARE }o--|| PERMISSION : "Share Permission Enum"
+```
+
+We will need more packages
+```
+pip install pydantic sqlalchemy
+
+```
+
+### Final for this example
+### Run on Local
